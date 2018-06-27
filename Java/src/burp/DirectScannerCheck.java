@@ -127,8 +127,9 @@ public class DirectScannerCheck extends ShellingScannerCheck {
                     
                     attackReq = callbacks.makeHttpRequest(baseRequestResponse.getHttpService(),req); // we perform the attack, because we already know the payload                    
                     byte[] resp = attackReq.getResponse();
+                    IResponseInfo responseInfo = helpers.analyzeResponse(resp);
                     
-                    if(attackReq.getStatusCode()==400&&this.tab.shellingPanel.includeLiteralWhites.isSelected()==true&&this.tab.shellingPanel.smart400Avoidance.isSelected()) // baddie avoidance
+                    if(responseInfo.getStatusCode()==400&&this.tab.shellingPanel.includeLiteralWhites.isSelected()==true&&this.tab.shellingPanel.smart400Avoidance.isSelected()) // baddie avoidance
                     {
                         // search the payload
                         for(int l=0;l<payload.length;l++)
